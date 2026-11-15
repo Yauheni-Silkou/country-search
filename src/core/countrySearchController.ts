@@ -2,7 +2,7 @@ import { DEBOUNCE_DELAY_MS } from './constants.js';
 import { debounce } from './debounce.js';
 import { classifySearchError } from './errorClassifier.js';
 import type { Country } from './mapCountryResponse.js';
-import { searchCountries } from './searchCountries.js';
+import { type CachedCountrySearch, createCachedCountrySearch } from './cachedCountrySearch.js';
 
 export type SearchState =
   | { status: 'idle'; query: string }
@@ -19,7 +19,8 @@ export interface CountrySearchController {
 
 export function createCountrySearchController(
   onStateChange: (state: SearchState) => void,
-  delayMs = DEBOUNCE_DELAY_MS
+  delayMs = DEBOUNCE_DELAY_MS,
+  cachedSearch: CachedCountrySearch = createCachedCountrySearch()
 ): CountrySearchController {
   let currentController: AbortController | null = null;
   let latestQuery = '';
@@ -45,7 +46,7 @@ export function createCountrySearchController(
     onStateChange({ status: 'loading', query });
 
     try {
-      const countries = await searchCountries(query, controller.signal);
+      const countries = await cachedSearch.search(query, controller.signal);
 
       if (controller !== currentController || isDisposed) {
         return;
