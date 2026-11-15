@@ -1,1 +1,3 @@
-// Entry point required by tsconfig.json; application logic will be added later.
+import { renderApp } from './ui/renderApp.js';
+
+renderApp(document.body);
