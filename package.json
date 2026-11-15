@@ -6,13 +6,19 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint src tests",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format": "prettier --write --no-error-on-unmatched-pattern \"src/**/*.ts\" \"tests/**/*.ts\" \"styles/**/*.css\" index.html DESIGN.md package.json tsconfig.json tsconfig.eslint.json .prettierrc",
     "test": "vitest run --passWithNoTests",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.ts": [
       "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,html}": [
+      "prettier --write"
+    ],
+    "DESIGN.md": [
       "prettier --write"
     ]
   },
