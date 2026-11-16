@@ -1,0 +1,36 @@
+{
+  "name": "country-search",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src tests",
+    "format": "prettier --write --no-error-on-unmatched-pattern \"src/**/*.ts\" \"tests/**/*.ts\" \"styles/**/*.css\" index.html DESIGN.md package.json tsconfig.json tsconfig.eslint.json .prettierrc",
+    "test": "vitest run --passWithNoTests",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,html}": [
+      "prettier --write"
+    ],
+    "DESIGN.md": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.15.0",
+    "vitest": "^2.1.9"
+  }
+}
